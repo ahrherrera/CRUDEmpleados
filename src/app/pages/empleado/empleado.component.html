@@ -1,0 +1,118 @@
+<block-ui>
+    <div class="container mt-3">
+        <button type="button" class="btn btn-primary mb-2" [routerLink]="['/']">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+        </button>
+        <h2 class="mt-3" *ngIf="!edit" ><b>Agregar Empleado</b></h2>
+        <h2 class="mt-3" *ngIf="edit" ><b>Editar Empleado</b></h2>
+    
+        <form [formGroup]='EmployeeForm'>
+            <div class="form-row">
+                <div class="col">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" formControlName="nombres" name="nombre" id="nombre"
+                        aria-describedby="helpId" placeholder="">
+                    <div *ngIf="EmployeeForm.get('nombre')?.invalid && (EmployeeForm.get('nombre').dirty || EmployeeForm.get('nombre').touched)">
+    
+                        <div *ngIf="EmployeeForm.get('nombre').errors.required">
+                            <small id="helpId" class="form-text text-danger">Nombre es requerido</small>
+                        </div>
+                        <div *ngIf="EmployeeForm.get('nombre').errors.minlength">
+                            No es valido
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col">
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" formControlName="apellidos" class="form-control" name="apellidos" id="apellidos"
+                        aria-describedby="helpId" placeholder="">
+                        <div *ngIf="EmployeeForm.get('apellidos')?.invalid && (EmployeeForm.get('apellidos').dirty || EmployeeForm.get('apellidos').touched)">
+    
+                            <div *ngIf="EmployeeForm.get('apellidos').errors.required">
+                                <small id="helpId" class="form-text text-danger">Apellido es requerido</small>
+                            </div>
+                            
+                        </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="correo">Correo:</label>
+                <input type="text" formControlName="correo" class="form-control" name="correo" id="correo"
+                    aria-describedby="helpId" placeholder="Ingresa tu correo">
+                    <div *ngIf="EmployeeForm.get('correo')?.invalid && (EmployeeForm.get('correo').dirty || EmployeeForm.get('correo').touched)">
+    
+                        <div *ngIf="EmployeeForm.get('correo').errors.required">
+                            <small id="helpId" class="form-text text-danger">Correo es requerido</small>
+                        </div>
+                        <div *ngIf="EmployeeForm.get('correo').errors.pattern">
+                            <small id="helpId" class="form-text text-danger">Correo no es valido</small>
+                        </div>
+                        <div *ngIf="EmployeeForm.get('correo').errors.minlength">
+                            <small id="helpId" class="form-text text-danger">Correo no es valido</small>
+                        </div>
+                    </div>
+            </div>
+    
+            <div class="form-row">
+                <div class="col">
+                    <label for="cedula">Cédula:</label>
+                    <input type="text" formControlName="cedula" class="form-control" name="cedula" id="cedula" [showMaskTyped]="true"
+                        mask="000-000000-0000S" aria-describedby="helpId" placeholder="000-000000-0000S" (blur)="parseFecha()">
+                        <div *ngIf="EmployeeForm.get('cedula')?.invalid && (EmployeeForm.get('cedula').dirty || EmployeeForm.get('cedula').touched)">
+    
+                            <div *ngIf="EmployeeForm.get('cedula').errors.required">
+                                <small id="helpId" class="form-text text-danger">Cédula es requerido</small>
+                            </div>
+                            <div *ngIf="EmployeeForm.get('cedula').errors.pattern">
+                                <small id="helpId" class="form-text text-danger">Cédula no es valida</small>
+                            </div>
+                            <div *ngIf="EmployeeForm.get('cedula').errors.minlength">
+                                <small id="helpId" class="form-text text-danger">Cédula no es valida</small>
+                            </div>
+                        </div>
+                </div>
+    
+                <div class="col">
+                    <label for="nInss">Número INSS:</label>
+                    <input type="text" formControlName="nInss" class="form-control" name="nInss" id="nInss"
+                        aria-describedby="helpId">
+                        <div *ngIf="EmployeeForm.get('nInss')?.invalid && (EmployeeForm.get('nInss').dirty || EmployeeForm.get('nInss').touched)">
+    
+                            <div *ngIf="EmployeeForm.get('nInss').errors.required">
+                                <small id="helpId" class="form-text text-danger">INSS es requerido</small>
+                            </div>
+                            <div *ngIf="EmployeeForm.get('nInss').errors.pattern">
+                                <small id="helpId" class="form-text text-danger">INSS no es valido</small>
+                            </div>
+                            <div *ngIf="EmployeeForm.get('nInss').errors.minlength">
+                                <small id="helpId" class="form-text text-danger">INSS no es valido</small>
+                            </div>
+                        </div>
+                </div>
+            </div>
+    
+            <div class="form-row mt-2">
+                <div class="col">
+                    <label for="fechaNac">Fecha de Nacimiento:</label>
+                    <input type="text" formControlName="fechaNac" class="form-control" name="fechaNac" id="fechaNac" disabled
+                        aria-describedby="helpId">
+                </div>
+                <div class="col"></div>
+            </div>
+    
+            <div class="form-check text-center mt-3" hidden>
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="activo" id="activo" value="checkedValue"
+                        formControlName="activo">
+                    Activo
+                </label>
+            </div>
+        </form>
+    
+        <div class="col text-center mt-4">
+            <button type="button" class="btn btn-primary" (click)="guardar()">Guardar</button>
+        </div>
+    </div>
+</block-ui>

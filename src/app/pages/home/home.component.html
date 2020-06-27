@@ -1,0 +1,42 @@
+<block-ui>
+    <div class="container p-3">
+        <a class="btn btn-primary" [routerLink]="['/nuevo']"> <i class="fas fa-plus mr-1"></i>Agregar</a>
+    </div>
+    
+    <div class="container">
+        <dx-data-grid id="gridContainer" [dataSource]="empleadosServ.empleados" [showBorders]="true" [remoteOperations]="true">
+            <dxo-header-filter 
+            [visible]="true"></dxo-header-filter>
+        <dxo-search-panel 
+            [visible]="true" 
+            [width]="240" 
+            placeholder="Buscar..."></dxo-search-panel>
+            <dxi-column dataField="nombres" dataType="string">
+            </dxi-column>
+            <dxi-column dataField="apellidos" dataType="string">
+            </dxi-column>
+            <dxi-column dataField="correo" dataType="string">
+            </dxi-column>
+            <dxi-column dataField="cedula" dataType="string">
+            </dxi-column>
+            <dxi-column dataField="nInss" caption="Numero INSS" dataType="string">
+            </dxi-column>
+            <dxi-column dataField="fechaNacimiento" dataType="date">
+            </dxi-column>
+            <dxi-column dataField="activo" dataType="boolean">
+            </dxi-column>
+            <dxi-column [width]='190' caption="Acciones" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate">
+            </dxi-column>
+            <div *dxTemplate="let data of 'cellTemplate'" class="buttons">
+              <dx-button text="Editar"  stylingMode="contained" type="success"
+                [width]="80" (click)="editar(data)">
+              </dx-button>
+              <dx-button text="Eliminar" (click)="eliminar(data)"  stylingMode="contained" type="danger"
+                [width]="100">
+              </dx-button>
+            </div>
+            <dxo-paging [pageSize]="12"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[8, 12, 20]"></dxo-pager>
+        </dx-data-grid>
+    </div>
+</block-ui>
